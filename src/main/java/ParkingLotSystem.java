@@ -2,9 +2,9 @@ public class ParkingLotSystem {
 
     private Object vehicle;
 
-    public boolean parkVehicle(Object vehicle) {
+    public boolean parkVehicle(Object vehicle) throws ParkingLotSystemException {
         if(this.vehicle != null)
-            return false;
+          throw new ParkingLotSystemException("Parking is full");
         this.vehicle = vehicle;
         return true;
     }

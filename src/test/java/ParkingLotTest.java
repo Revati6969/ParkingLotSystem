@@ -32,4 +32,11 @@ public class ParkingLotTest {
         boolean isUnParked = parkingLotSystem.unParkVehicle(vehicle);
         Assert.assertTrue(isUnParked);
     }
+
+    @Test
+    public void givenVehicle_WhenAlreadyUnParked_ShouldReturnFalse() {
+        parkingLotSystem.parkVehicle(new Object());
+        boolean isUnParked = parkingLotSystem.unParkVehicle(vehicle);
+        Assert.assertFalse(isUnParked);
+    }
 }

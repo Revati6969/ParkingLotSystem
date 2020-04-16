@@ -29,7 +29,7 @@ public class ParkingLotTest {
             parkingLotSystem.parkVehicle(vehicle);
             parkingLotSystem.parkVehicle(new Object());
         } catch (ParkingLotSystemException e) {
-            assertEquals("Parking is full", e.getMessage());
+            assertEquals(ParkingLotSystemException.ExceptionType.PARKING_FULL, e.type);
         }
     }
 
@@ -42,13 +42,13 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenVehicle_WhenAlreadyUnParked_ShouldReturnFalse() throws ParkingLotSystemException {
+    public void givenVehicle_WhenAlreadyUnParked_ShouldReturnFalse(){
         parkingLotSystem.ParkingLotSystem(1);
         try {
             parkingLotSystem.parkVehicle(vehicle);
             Object isUnParked = parkingLotSystem.unParkVehicle(new Object());
         } catch (ParkingLotSystemException e) {
-            assertEquals("The vehicle is not parked here", e.getMessage());
+            assertEquals(ParkingLotSystemException.ExceptionType.NO_VEHICLE, e.type);
         }
     }
 

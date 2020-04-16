@@ -25,7 +25,7 @@ public class ParkingLotSystem {
     public boolean parkVehicle(Object vehicle) throws ParkingLotSystemException {
         if(spaceAvailable > 0) {
             if (this.vehicle != null) {
-                throw new ParkingLotSystemException("Parking lot is full");
+                throw new ParkingLotSystemException("Parking lot is full", ParkingLotSystemException.ExceptionType.PARKING_FULL);
             }
             vehiclesList.add(vehicle);
             if (vehiclesList.size() == capacity) {
@@ -36,13 +36,13 @@ public class ParkingLotSystem {
             spaceAvailable--;
             return true;
         }
-        throw new ParkingLotSystemException("Parking lot is full");
+        throw new ParkingLotSystemException("Parking lot is full", ParkingLotSystemException.ExceptionType.PARKING_FULL);
     }
 
     public Object unParkVehicle(Object vehicle) throws ParkingLotSystemException {
         if (vehiclesList.contains(vehicle)) {
             return vehiclesList.remove(vehiclesList.indexOf(vehicle));
         }
-        throw new ParkingLotSystemException("The vehicle is not parked here");
+        throw new ParkingLotSystemException("The vehicle is not parked here", ParkingLotSystemException.ExceptionType.NO_VEHICLE);
     }
 }

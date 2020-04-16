@@ -1,6 +1,14 @@
-public class ParkingLotSystemException extends Exception{
+public class ParkingLotSystemException extends Exception {
 
-    public ParkingLotSystemException(String message){
+    public ExceptionType type;
+
+    public ParkingLotSystemException(String message, ExceptionType type) {
         super(message);
+        this.type = type;
+    }
+
+    public enum ExceptionType{
+        PARKING_FULL,
+        NO_VEHICLE
     }
 }

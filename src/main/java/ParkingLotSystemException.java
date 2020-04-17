@@ -9,6 +9,7 @@ public class ParkingLotSystemException extends Exception {
 
     public enum ExceptionType{
         PARKING_FULL,
-        NO_VEHICLE
+        NO_VEHICLE,
+        CAR_ALREADY_PARKED
     }
 }

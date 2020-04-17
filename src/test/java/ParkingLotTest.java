@@ -8,6 +8,8 @@ public class ParkingLotTest {
 
     ParkingLotSystem parkingLotSystem = null;
     Object vehicle = null;
+    Owner owner = new Owner();
+    AirportSecurity airportSecurity = new AirportSecurity();
 
     @Before
     public void setUp() throws Exception {
@@ -54,7 +56,6 @@ public class ParkingLotTest {
 
     @Test
     public void givenParkingLot_WhenParkingLotIsFull_thenShouldNotifyToOwner() throws ParkingLotSystemException {
-        Owner owner = new Owner();
         parkingLotSystem.ParkingLotSystem(2, owner);
         Object carOne = new Object();
         Object carTwo = new Object();
@@ -62,4 +63,15 @@ public class ParkingLotTest {
         parkingLotSystem.parkVehicle(carTwo);
         assertEquals("Parking lot is full", owner.getMessage());
     }
+
+    @Test
+    public void givenParkingLot_WhenParkingLotIsFull_thenShouldNotifyToAirportSecurity() throws ParkingLotSystemException {
+        parkingLotSystem.ParkingLotSystem(2, null);
+        Object carOne = new Object();
+        Object carTwo = new Object();
+        parkingLotSystem.parkVehicle(carOne);
+        parkingLotSystem.parkVehicle(carTwo);
+        assertEquals("Parking lot is full", airportSecurity.getMessage());
+    }
 }
+

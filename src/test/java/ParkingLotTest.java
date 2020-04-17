@@ -88,5 +88,14 @@ public class ParkingLotTest {
             Assert.assertTrue(ParkingLotObserver.AIRPORT_SECURITY.isParkingFull);
         }
     }
+
+    @Test
+    public void givenTaskToInformEveryObserver_WhenParkingIsAvailable_InformerShouldInformEveryone() {
+        ObserversInformer informer = new ObserversInformer();
+        informer.informThatParkingIsFull();
+        informer.informThatParkingIsAvailable();
+        Assert.assertFalse(ParkingLotObserver.OWNER.isParkingFull);
+        Assert.assertFalse(ParkingLotObserver.AIRPORT_SECURITY.isParkingFull);
+    }
 }
 

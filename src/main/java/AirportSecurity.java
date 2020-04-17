@@ -1,4 +1,4 @@
-public class Owner {
+public class AirportSecurity {
     String message;
 
     public String getMessage() {
@@ -9,4 +9,3 @@ public class Owner {
         this.message = message;
     }
 }
-

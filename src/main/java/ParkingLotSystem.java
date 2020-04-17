@@ -7,14 +7,11 @@ public class ParkingLotSystem {
     private int parkingCapacity;
     private boolean parkingCapacityFull;
 
-    public List<ParkingLotObserver> observers;
+    private final ObserversInformer observersInformer;
 
     public ParkingLotSystem() {
         this.parkedVehicles = new ArrayList();
-        this.observers = new ArrayList();
-        for (ParkingLotObserver observer : ParkingLotObserver.values()) {
-            this.observers.add(observer);
-        }
+        this.observersInformer = new ObserversInformer();
     }
 
     public void setParkingLotCapacity(int capacity) {
@@ -29,7 +26,7 @@ public class ParkingLotSystem {
     public void parkTheCar(Object vehicle) throws ParkingLotSystemException {
         if (this.parkedVehicles.size() == this.parkingCapacity) {
             this.parkingCapacityFull = true;
-            this.observers.forEach(observer -> observer.isParkingFull = true);
+            this.observersInformer.informThatParkingIsFull();
             throw new ParkingLotSystemException("No space available in the parking lot!",
                     ParkingLotSystemException.ExceptionType.PARKING_FULL);
         }
@@ -42,8 +39,8 @@ public class ParkingLotSystem {
     public void unParkTheCar(Object vehicle) throws ParkingLotSystemException {
         if (this.isThisCarPresentInTheParkingLot(vehicle)) {
             this.parkedVehicles.remove(vehicle);
-            this.observers.forEach(observer -> observer.isParkingFull = false);
-            return;
+            this.observersInformer.informThatParkingIsAvailable();
+             return;
         }
         throw new ParkingLotSystemException("No such car present in parking lot!",
                 ParkingLotSystemException.ExceptionType.NO_VEHICLE);

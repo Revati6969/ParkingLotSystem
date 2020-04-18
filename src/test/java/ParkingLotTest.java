@@ -116,5 +116,17 @@ public class ParkingLotTest {
         Assert.assertEquals(0, slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
         Assert.assertEquals(2, slotAllotment.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size());
     }
+
+    @Test
+    public void givenParkingSlot_WhenCarFound_ShouldReturnTrue() {
+        try {
+            parkingLotSystem.parkTheCar(vehicle);
+            parkingLotSystem.unParkTheCar(vehicle);
+            boolean isUnParked = parkingLotSystem.isThisCarPresentInTheParkingLot(vehicle);
+            Assert.assertEquals(true, isUnParked);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

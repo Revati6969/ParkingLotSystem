@@ -1,3 +1,4 @@
+import exceptions.ParkingLotSystemException;
 import observer.ObserversInformer;
 import observer.ParkingLotObserver;
 import org.junit.Assert;
@@ -126,6 +127,29 @@ public class ParkingLotTest {
             Assert.assertEquals(true, isUnParked);
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAnEmptyParkingLot_WhenAskedForNearestParkingSlot_ShouldReturnSlot0() {
+        try {
+            Assert.assertEquals(1,slotAllotment.getNearestParkingSlot());
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAFullyOccupiedParkingLot_WhenAskedForNearestParkingSlot_ShouldThrowParkingFullException() {
+        try {
+            slotAllotment.parkUpdate(vehicle,1);
+            Object vehicle1 = new Object();
+            slotAllotment.parkUpdate(vehicle1,2);
+            Assert.assertEquals(2,slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
+            slotAllotment.getNearestParkingSlot();
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+            Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_FULL,e.type);
         }
     }
 }

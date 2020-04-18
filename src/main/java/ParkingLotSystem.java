@@ -1,3 +1,4 @@
+import exceptions.ParkingLotSystemException;
 import parkinglotessetials.SlotAllotment;
 
 import java.util.ArrayList;
@@ -36,6 +37,13 @@ public class ParkingLotSystem {
             throw new ParkingLotSystemException("Car already present in parking lot!",
                     ParkingLotSystemException.ExceptionType.CAR_ALREADY_PARKED);
         }
+        int slot = this.getSlot();
+        this.parkedVehicles.add(slot,vehicle);
+        this.slotManager.parkUpdate(vehicle,slot);
+    }
+
+    private int getSlot() throws ParkingLotSystemException {
+        return slotManager.getNearestParkingSlot()-1;
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotSystemException {

@@ -1,13 +1,12 @@
 import exceptions.ParkingLotSystemException;
 import parkinglotessetials.SlotAllotment;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLotSystem {
 
     private final List parkedVehicles;
-    private SlotAllotment slotManager = null;
+    private SlotAllotment slotManager ;
     private int parkingCapacity;
     private boolean parkingCapacityFull;
 
@@ -55,5 +54,4 @@ public class ParkingLotSystem {
         this.slotManager.unParkUpdate(vehicle);
         return;
     }
-
 }

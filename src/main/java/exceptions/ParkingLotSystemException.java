@@ -1,3 +1,5 @@
+package exceptions;
+
 public class ParkingLotSystemException extends Exception {
 
     public ExceptionType type;

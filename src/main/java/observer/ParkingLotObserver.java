@@ -1,6 +1,8 @@
+package observer;
+
 public enum ParkingLotObserver {
 
-    OWNER(false), AIRPORT_SECURITY(false);
+    OWNER(true), AIRPORT_SECURITY(true);
     public boolean isParkingFull;
 
     ParkingLotObserver(boolean isParkingFull) {

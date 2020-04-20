@@ -5,7 +5,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import parkinglotessetials.Availability;
+import parkinglotessetials.ParkingTimeManager;
 import parkinglotessetials.SlotAllotment;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 
@@ -151,6 +155,15 @@ public class ParkingLotTest {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_FULL,e.type);
         }
+    }
+
+    @Test
+    public void givenARequestToGetTime_ShouldReturnCurrentTime() {
+        ParkingTimeManager timeManager = new ParkingTimeManager();
+        LocalDateTime currentTime = timeManager.getParkTime(vehicle);
+        LocalDateTime now = LocalDateTime.now();
+        long result = Duration.between(currentTime, now).toMillis();
+        Assert.assertEquals(0.0, result, 0);
     }
 }
 

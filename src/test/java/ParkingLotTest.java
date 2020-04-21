@@ -5,13 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import parkinglotessetials.Availability;
-import parkinglotessetials.ParkingTimeManager;
+import parkinglotessetials.ParkingLotSystem;
 import parkinglotessetials.SlotAllotment;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-
-import static org.junit.Assert.assertEquals;
 
 public class ParkingLotTest {
 
@@ -137,7 +132,7 @@ public class ParkingLotTest {
     @Test
     public void givenAnEmptyParkingLot_WhenAskedForNearestParkingSlot_ShouldReturnSlot0() {
         try {
-            Assert.assertEquals(1,slotAllotment.getNearestParkingSlot());
+            Assert.assertEquals(1,slotAllotment.getAvailableParkingSlot());
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
@@ -150,7 +145,7 @@ public class ParkingLotTest {
             Object vehicle1 = new Object();
             slotAllotment.parkUpdate(vehicle1,2);
             Assert.assertEquals(2,slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
-            slotAllotment.getNearestParkingSlot();
+            slotAllotment.getAvailableParkingSlot();
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_FULL,e.type);
@@ -158,12 +153,16 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenARequestToGetTime_ShouldReturnCurrentTime() {
-        ParkingTimeManager timeManager = new ParkingTimeManager();
-        LocalDateTime currentTime = timeManager.getParkTime(vehicle);
-        LocalDateTime now = LocalDateTime.now();
-        long result = Duration.between(currentTime, now).toMillis();
-        Assert.assertEquals(0.0, result, 0);
+    public void givenParkingSlot_WhenTimeIsSet_ThenReturnTrue() {
+        parkingLotSystem.setParkingLotCapacity(10);
+        parkingLotSystem.initializeParkingLot();
+        try {
+            parkingLotSystem.parkTheCar(vehicle);
+            boolean isTimeSet = parkingLotSystem.setTime(vehicle);
+            Assert.assertTrue(isTimeSet);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
     }
 }
 

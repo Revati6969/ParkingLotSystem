@@ -43,7 +43,7 @@ public class SlotAllotment {
         Collections.sort(this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED));
     }
 
-    public int getNearestParkingSlot() throws ParkingLotSystemException {
+    public int getAvailableParkingSlot() throws ParkingLotSystemException {
         try {
             return (Integer) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
         } catch (IndexOutOfBoundsException e) {

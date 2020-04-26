@@ -22,8 +22,11 @@ public class ParkingAttendant {
     }
 
     //METHOD TO UNPARK THE VEHICLE FROM PARKING LOT
-    public void unParkedVehicle(Vehicle vehicle) {
-        parkingLotSystem.vehicleMap.entrySet().removeIf(entry -> vehicle.equals(entry.getValue()));
+    public void unParkedVehicle(Vehicle vehicle) throws ParkingLotSystemException {
+        if (parkingLotSystem.vehicleMap.containsValue(vehicle))
+            parkingLotSystem.vehicleMap.remove(getVehiclePosition(vehicle), vehicle);
+        else
+            throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NOT_PARKED_HERE, "VEHICLE_NOT_PARKED_HERE");
     }
 
     //METHOD TO GET THE POSITION IF VEHICLE IN PARKING LOT
@@ -38,7 +41,7 @@ public class ParkingAttendant {
     public String getParkingPosition() {
         String position = null;
         while (lot++ <= parkingLotSystem.NUMBER_OF_PARKING_LOTS) {
-            for (int index = 1; index < parkingLotSystem.SIZE_OF_PARKING_LOT; index++) {
+            for (int index = 1; index <= parkingLotSystem.SIZE_OF_PARKING_LOT; index++) {
                 String key = "A".concat(lot + " " + index);
                 if (!parkingLotSystem.vehicleMap.containsKey(key)) {
                     position = key;
